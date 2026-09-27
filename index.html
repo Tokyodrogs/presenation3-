@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOXSTOCK — Philippine Startup Challenge XI | Team TRIVOX</title>
+  <meta name="description" content="VOXSTOCK: An AI-Powered Inventory Management System Using Voice Recognition by Team TRIVOX (Grade 12 James Gosling).">
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for crisp iconography -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Progress Bar -->
+  <div id="top-progress-container">
+    <div id="top-progress-bar"></div>
+  </div>
+
+  <!-- Persistent 3D Canvas Background -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Ambient Rain Overlay Vignette & Glass Blur -->
+  <div class="rain-window-vignette"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="presentation-header">
+    <div class="brand-badge">
+      <div class="brand-logo-icon">
+        <i class="fa-solid fa-microphone-lines"></i>
+      </div>
+      <div class="brand-text-group">
+        <span class="brand-title">VOXSTOCK</span>
+        <span class="brand-sub">TRIVOX &bull; Grade 12 James Gosling</span>
+      </div>
+    </div>
+
+    <div class="header-center-badge">
+      <span class="event-tag"><i class="fa-solid fa-trophy"></i> Philippine Startup Challenge XI</span>
+    </div>
+
+    <div class="header-actions">
+      <!-- Voice Demo Trigger -->
+      <button id="btn-voice-demo" class="hud-btn highlight" title="Test Live Voice Command Sandbox">
+        <i class="fa-solid fa-microphone"></i>
+        <span>Live Voice AI Demo</span>
+      </button>
+
+      <!-- Rain Audio Ambient Toggle -->
+      <button id="btn-audio-toggle" class="hud-btn" title="Toggle Ambient Rain Sound">
+        <i class="fa-solid fa-cloud-rain"></i>
+        <span id="audio-btn-label">Rain Sound: OFF</span>
+      </button>
+
+      <!-- Slide Overview Grid Toggle -->
+      <button id="btn-overview-toggle" class="hud-btn icon-only" title="Slide Overview (Press 'O')">
+        <i class="fa-solid fa-table-cells-large"></i>
+      </button>
+
+      <!-- Speaker Notes Toggle -->
+      <button id="btn-notes-toggle" class="hud-btn icon-only" title="Speaker Notes (Press 'N')">
+        <i class="fa-regular fa-note-sticky"></i>
+      </button>
+
+      <!-- Fullscreen Toggle -->
+      <button id="btn-fullscreen" class="hud-btn icon-only" title="Toggle Fullscreen (Press 'F')">
+        <i class="fa-solid fa-expand"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Slides Container -->
+  <main class="slides-viewport" id="slides-container">
+
+    <!-- ========================================== -->
+    <!-- SLIDE 1: TITLE SLIDE                       -->
+    <!-- ========================================== -->
+    <section class="slide active" data-slide-index="0" data-theme="title">
+      <div class="slide-content-wrapper center-layout">
+        <div class="glass-card title-hero-card animate-box">
+          <div class="hero-top-meta">
+            <span class="tag-pill cyan-glow"><i class="fa-solid fa-flag-checkered"></i> PHILIPPINE STARTUP CHALLENGE XI</span>
+            <span class="tag-pill silver-badge"><i class="fa-solid fa-graduation-cap"></i> GRADE 12 &mdash; JAMES GOSLING</span>
+          </div>
+
+          <div class="title-branding">
+            <h1 class="main-startup-title">VOXSTOCK</h1>
+            <div class="team-designation">by <strong>TRIVOX</strong></div>
+          </div>
+
+          <p class="startup-hero-tagline">
+            "Speak. Track. Manage. Effortlessly."
+          </p>
+
+          <div class="title-subhead-pill">
+            <i class="fa-solid fa-wave-square"></i>
+            <span>An AI-Powered Inventory Management System Using Voice Recognition</span>
+          </div>
+
+          <div class="team-roster-grid">
+            <div class="roster-card">
+              <div class="roster-icon"><i class="fa-solid fa-crown"></i></div>
+              <div class="roster-details">
+                <div class="member-name">Versoza, Azhley Nicole D.</div>
+                <div class="member-role">Project Lead &amp; Business Strategy</div>
+              </div>
+            </div>
+
+            <div class="roster-card">
+              <div class="roster-icon"><i class="fa-solid fa-brain"></i></div>
+              <div class="roster-details">
+                <div class="member-name">Abique, Breian I.</div>
+                <div class="member-role">AI/ML Development &amp; Voice Engine</div>
+              </div>
+            </div>
+
+            <div class="roster-card">
+              <div class="roster-icon"><i class="fa-solid fa-code"></i></div>
+              <div class="roster-details">
+                <div class="member-name">Profeta, Dref Nicolo F.</div>
+                <div class="member-role">Full-Stack Development &amp; UI/UX</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-cta-hint">
+            <span>Press <kbd>&rarr;</kbd> or click <strong>Next</strong> to start presentation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 2: I. SUMMARY                        -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="1" data-theme="summary">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION I</div>
+          <h2 class="slide-main-title">Executive Summary</h2>
+          <p class="slide-subtitle">Revolutionizing Philippine MSME inventory with native voice AI.</p>
+        </div>
+
+        <div class="three-column-grid">
+          <!-- The Problem -->
+          <div class="glass-card problem-card animate-box">
+            <div class="card-header-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3 class="card-title">The Problem</h3>
+            <p class="card-text">
+              Over <strong>68% of Filipino SMEs</strong> still rely on manual pen-and-paper or basic spreadsheets for daily stock counting.
+            </p>
+            <div class="metric-highlight red-glow">
+              <span class="metric-number">₱2.3B</span>
+              <span class="metric-label">Annual lost revenue across PH due to stockouts &amp; spoilage</span>
+            </div>
+            <ul class="mini-bullet-list">
+              <li><i class="fa-solid fa-xmark red-text"></i> Severe stockouts &amp; dead capital overstocking</li>
+              <li><i class="fa-solid fa-xmark red-text"></i> Manual entry fatigue &amp; human logging errors</li>
+            </ul>
+          </div>
+
+          <!-- The Solution -->
+          <div class="glass-card solution-card animate-box">
+            <div class="card-header-icon cyan"><i class="fa-solid fa-microchip"></i></div>
+            <h3 class="card-title">The Solution</h3>
+            <p class="card-text">
+              <strong>VOXSTOCK</strong> is a voice-first, AI-driven inventory platform that lets store owners and warehouse staff manage stock <strong>hands-free</strong>.
+            </p>
+            <div class="tech-pill-box">
+              <span class="tech-pill"><i class="fa-solid fa-language"></i> Tagalog &bull; Cebuano &bull; English</span>
+              <span class="tech-pill"><i class="fa-solid fa-cloud-arrow-up"></i> Real-time Cloud + Offline Sync</span>
+            </div>
+            <p class="card-subtext">
+              Simply talk to your phone or tablet while unpacking or stocking shelves.
+            </p>
+          </div>
+
+          <!-- Value Proposition -->
+          <div class="glass-card value-card animate-box">
+            <div class="card-header-icon green"><i class="fa-solid fa-bolt"></i></div>
+            <h3 class="card-title">Key Value Proposition</h3>
+            <p class="card-text">
+              <strong>Zero learning curve.</strong> No typing required. No expensive barcode scanners needed.
+            </p>
+            <div class="metric-highlight green-glow">
+              <span class="metric-number">97.4%</span>
+              <span class="metric-label">Voice recognition accuracy for local Filipino accents</span>
+            </div>
+            <div class="quote-callout">
+              "Just speak — and your inventory updates instantly in real time."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 3: II. BACKGROUND OF THE PROBLEM     -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="2" data-theme="problem">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION II</div>
+          <h2 class="slide-main-title">Background of the Problem</h2>
+          <p class="slide-subtitle">The silent economic drain on 1.1 million Filipino micro, small, and medium enterprises.</p>
+        </div>
+
+        <div class="two-column-split">
+          <!-- Left: Context & Shocking Stats -->
+          <div class="glass-card animate-box">
+            <h3 class="card-section-title"><i class="fa-solid fa-chart-pie"></i> Local Context &amp; Realities</h3>
+            
+            <div class="stats-row-cards">
+              <div class="stat-pill-item">
+                <div class="stat-big-val">1.1M</div>
+                <div class="stat-desc"><strong>Registered MSMEs in PH</strong><br>90% operate in retail, food, and logistics</div>
+              </div>
+
+              <div class="stat-pill-item warning">
+                <div class="stat-big-val">15–30%</div>
+                <div class="stat-desc"><strong>Discrepancy Rate</strong><br>Between recorded logs and actual physical stock</div>
+              </div>
+
+              <div class="stat-pill-item danger">
+                <div class="stat-big-val">4.2 hrs</div>
+                <div class="stat-desc"><strong>Wasted Daily Per Staff</strong><br>Spent on repetitive manual auditing &amp; counting</div>
+              </div>
+            </div>
+
+            <div class="info-alert-box">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <div>
+                <strong>Time Stolen from Growth:</strong> 4.2 hours daily equates to over 25 hours per week per worker diverted away from customer sales, store merchandising, and hospitality.
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Relevance & Market Gaps -->
+          <div class="glass-card animate-box">
+            <h3 class="card-section-title"><i class="fa-solid fa-bullseye"></i> Relevance &amp; Market Failure</h3>
+            
+            <div class="challenge-item-list">
+              <div class="challenge-item">
+                <div class="challenge-icon"><i class="fa-solid fa-boxes-packing"></i></div>
+                <div class="challenge-content">
+                  <h4>Post-Pandemic Supply Chain Volatility</h4>
+                  <p>Unpredictable supplier deliveries make real-time, instantaneous stock visibility critical for everyday business survival.</p>
+                </div>
+              </div>
+
+              <div class="challenge-item">
+                <div class="challenge-icon"><i class="fa-solid fa-sack-xmark"></i></div>
+                <div class="challenge-content">
+                  <h4>Legacy ERPs Are Out of Reach</h4>
+                  <p>Enterprise solutions like SAP, Oracle, and NetSuite cost ₱100K+/year and require complex specialized IT training unsuitable for micro-merchants.</p>
+                </div>
+              </div>
+
+              <div class="challenge-item">
+                <div class="challenge-icon"><i class="fa-solid fa-globe-asia"></i></div>
+                <div class="challenge-content">
+                  <h4>Zero Native Dialect Voice Solutions</h4>
+                  <p>Global voice assistants (Siri, Alexa) fail miserably with mixed Taglish or regional Philippine dialects like Cebuano and Ilocano.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 4: III. PROPOSED STARTUP SOLUTION    -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="3" data-theme="solution">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION III</div>
+          <h2 class="slide-main-title">Proposed Startup Solution</h2>
+          <p class="slide-subtitle">VOXSTOCK: An intelligent, multi-dialect voice ecosystem built for grassroots businesses.</p>
+        </div>
+
+        <div class="solution-modules-grid">
+          <!-- Module 1 -->
+          <div class="glass-card feature-module-card animate-box">
+            <div class="module-number">01</div>
+            <div class="module-icon"><i class="fa-solid fa-microphone-waveform"></i></div>
+            <h3 class="module-title">Voice Command Engine</h3>
+            <p class="module-desc">
+              Custom Natural Language Processing (NLP) model trained specifically on conversational <strong>Tagalog, Cebuano, and English</strong>.
+            </p>
+            <div class="code-quote-pill">
+              <i class="fa-solid fa-quote-left"></i> "Magdagdag ng 50 kaso ng sardinas"
+            </div>
+            <div class="code-quote-pill">
+              <i class="fa-solid fa-quote-left"></i> "Minus 20 boxes of Bear Brand milk"
+            </div>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="glass-card feature-module-card animate-box">
+            <div class="module-number">02</div>
+            <div class="module-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <h3 class="module-title">AI Forecasting Dashboard</h3>
+            <p class="module-desc">
+              Predictive machine learning algorithms that analyze historical sales velocity, seasonal holidays (Fiestas, Paydays), and weather patterns.
+            </p>
+            <ul class="feature-checklist">
+              <li><i class="fa-solid fa-check cyan-text"></i> Automated reorder threshold alerts</li>
+              <li><i class="fa-solid fa-check cyan-text"></i> Spoilage &amp; expiration date warnings</li>
+            </ul>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="glass-card feature-module-card animate-box">
+            <div class="module-number">03</div>
+            <div class="module-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+            <h3 class="module-title">Real-Time Sync Hub</h3>
+            <p class="module-desc">
+              Omnichannel cloud synchronization bridging physical store shelves with modern digital commerce channels and payment gateways.
+            </p>
+            <div class="integration-badges">
+              <span class="int-badge"><i class="fa-solid fa-cash-register"></i> POS Systems</span>
+              <span class="int-badge"><i class="fa-solid fa-bag-shopping"></i> Shopee &bull; Lazada</span>
+              <span class="int-badge"><i class="fa-solid fa-wallet"></i> GCash &bull; Maya</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SDG Alignment Banner -->
+        <div class="glass-card sdg-banner-card animate-box">
+          <div class="sdg-label"><i class="fa-solid fa-earth-americas"></i> UN SDG Alignment:</div>
+          <div class="sdg-items-row">
+            <div class="sdg-pill sdg-9">
+              <span class="sdg-num">SDG 9</span>
+              <span class="sdg-text">Industry, Innovation &amp; Infrastructure (Digitalizing Grassroots SMEs)</span>
+            </div>
+            <div class="sdg-pill sdg-12">
+              <span class="sdg-num">SDG 12</span>
+              <span class="sdg-text">Responsible Consumption &amp; Production (Zero Overstock Spoilage &amp; Waste)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 5: IV. OBJECTIVES                    -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="4" data-theme="objectives">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION IV</div>
+          <h2 class="slide-main-title">Strategic Objectives &amp; Milestones</h2>
+          <p class="slide-subtitle">Clear, measurable metrics guiding VOXSTOCK from MVP to regional Southeast Asian scale.</p>
+        </div>
+
+        <div class="glass-card objectives-table-card animate-box">
+          <table class="custom-data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Strategic Objective</th>
+                <th>Target Metric &amp; Validation</th>
+                <th>Timeline</th>
+                <th>Impact Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="table-num-badge">1</span></td>
+                <td><strong>Onboard 500 MSMEs</strong><br><small>Retail, Sari-Sari chains &amp; Food businesses</small></td>
+                <td><span class="metric-pill cyan"><i class="fa-solid fa-users"></i> 500 Active Subscriptions</span></td>
+                <td><span class="timeline-badge">Year 1</span></td>
+                <td><div class="impact-meter"><span class="fill w-80"></span>High</div></td>
+              </tr>
+              <tr>
+                <td><span class="table-num-badge">2</span></td>
+                <td><strong>Achieve 97%+ Voice Recognition Accuracy</strong><br><small>Tagalog, Cebuano, and Taglish accents</small></td>
+                <td><span class="metric-pill green"><i class="fa-solid fa-bullseye"></i> NLP Benchmark &gt; 97.4%</span></td>
+                <td><span class="timeline-badge highlight">Month 6</span></td>
+                <td><div class="impact-meter"><span class="fill w-100"></span>Critical</div></td>
+              </tr>
+              <tr>
+                <td><span class="table-num-badge">3</span></td>
+                <td><strong>Reduce Client Inventory Discrepancy by 40%</strong><br><small>Eliminate physical vs. recorded variance</small></td>
+                <td><span class="metric-pill cyan"><i class="fa-solid fa-arrow-down-wide-short"></i> Pre/Post Audit Studies</span></td>
+                <td><span class="timeline-badge">Year 1</span></td>
+                <td><div class="impact-meter"><span class="fill w-85"></span>High</div></td>
+              </tr>
+              <tr>
+                <td><span class="table-num-badge">4</span></td>
+                <td><strong>Cut Average Inventory Logging Time by 60%</strong><br><small>From 4.2 hours/day down to under 1.5 hours</small></td>
+                <td><span class="metric-pill green"><i class="fa-solid fa-bolt"></i> Time-Motion Audits</span></td>
+                <td><span class="timeline-badge">Year 1</span></td>
+                <td><div class="impact-meter"><span class="fill w-90"></span>High</div></td>
+              </tr>
+              <tr>
+                <td><span class="table-num-badge">5</span></td>
+                <td><strong>Expand to 3 Regional ASEAN Markets</strong><br><small>Localization in Vietnam, Indonesia &amp; Thailand</small></td>
+                <td><span class="metric-pill purple"><i class="fa-solid fa-earth-asia"></i> 3 Country Launches</span></td>
+                <td><span class="timeline-badge">Year 3</span></td>
+                <td><div class="impact-meter"><span class="fill w-95"></span>Strategic</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 6: V. TARGET MARKET / BENEFICIARIES  -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="5" data-theme="market-target">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION V</div>
+          <h2 class="slide-main-title">Target Market &amp; Beneficiaries</h2>
+          <p class="slide-subtitle">Capturing high-frequency, inventory-dependent commercial sectors across the Philippines.</p>
+        </div>
+
+        <div class="two-column-split">
+          <!-- Left: Beneficiary Segments -->
+          <div class="beneficiary-groups">
+            <!-- Primary -->
+            <div class="glass-card animate-box">
+              <div class="card-badge primary-badge">PRIMARY BENEFICIARIES</div>
+              <div class="market-segment-list">
+                <div class="segment-card-item">
+                  <div class="seg-icon"><i class="fa-solid fa-store"></i></div>
+                  <div class="seg-info">
+                    <h4>Sari-Sari Store Chains &amp; Groceries</h4>
+                    <p>High SKU turnover in Metro Manila, Cebu, Davao, and provincial hubs.</p>
+                  </div>
+                </div>
+
+                <div class="segment-card-item">
+                  <div class="seg-icon"><i class="fa-solid fa-warehouse"></i></div>
+                  <div class="seg-info">
+                    <h4>Small-to-Medium Warehouses &amp; 3PLs</h4>
+                    <p>Wholesale distribution hubs needing rapid hands-free receiving.</p>
+                  </div>
+                </div>
+
+                <div class="segment-card-item">
+                  <div class="seg-icon"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="seg-info">
+                    <h4>Food &amp; Beverage Commissaries &amp; Restaurants</h4>
+                    <p>Perishable ingredient tracking to prevent spoilage and kitchen waste.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Secondary -->
+            <div class="glass-card animate-box">
+              <div class="card-badge secondary-badge">SECONDARY BENEFICIARIES</div>
+              <div class="secondary-tags-grid">
+                <div class="sec-tag"><i class="fa-solid fa-kit-medical"></i> <strong>Barangay Health Centers</strong> (Essential medicine &amp; vaccine stocks)</div>
+                <div class="sec-tag"><i class="fa-solid fa-school"></i> <strong>School Supply Depots</strong> (Books &amp; equipment logging)</div>
+                <div class="sec-tag"><i class="fa-solid fa-wheat-awn"></i> <strong>Agricultural Cooperatives</strong> (Fertilizer, seed &amp; harvest tracking)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Market Sizing TAM SAM SOM -->
+          <div class="glass-card market-sizing-card animate-box">
+            <h3 class="card-section-title"><i class="fa-solid fa-chart-pie"></i> Market Sizing (PH Valuation)</h3>
+
+            <div class="tam-sam-som-visual">
+              <div class="tam-box">
+                <div class="tam-header">
+                  <span class="tam-label">TAM &bull; Total Addressable Market</span>
+                  <span class="tam-val">₱8.7 Billion</span>
+                </div>
+                <p>Entire Philippine inventory &amp; logistics management software ecosystem.</p>
+
+                <div class="sam-box">
+                  <div class="sam-header">
+                    <span class="sam-label">SAM &bull; Serviceable Available Market</span>
+                    <span class="sam-val">₱1.2 Billion</span>
+                  </div>
+                  <p>1.1M MSME retail, grocery, and F&amp;B businesses actively seeking digital modernization.</p>
+
+                  <div class="som-box">
+                    <div class="som-header">
+                      <span class="som-label">SOM &bull; Serviceable Obtainable Market</span>
+                      <span class="som-val">₱120 Million</span>
+                    </div>
+                    <p>Realistic Year 1–3 target capturing 5,000+ active paying merchant subscribers.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 7: VI. VALUE PROPOSITION             -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="6" data-theme="value-prop">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION VI</div>
+          <h2 class="slide-main-title">Value Proposition Matrix</h2>
+          <p class="slide-subtitle">Why VOXSTOCK outclasses traditional software and manual spreadsheets.</p>
+        </div>
+
+        <div class="glass-card comparison-table-card animate-box">
+          <table class="custom-data-table comparison">
+            <thead>
+              <tr>
+                <th>Feature / Capability</th>
+                <th>Traditional Tools / ERPs</th>
+                <th class="highlight-th">VOXSTOCK Advantage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Input Method</strong></td>
+                <td><span class="bad-text"><i class="fa-solid fa-keyboard"></i> Slow typing / Barcode scanning</span></td>
+                <td><span class="good-text"><i class="fa-solid fa-microphone-lines"></i> 100% Hands-Free Voice (Tagalog, Cebuano, English)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Setup &amp; Onboarding Time</strong></td>
+                <td><span class="bad-text">2 to 4 weeks complex IT setup</span></td>
+                <td><span class="good-text"><i class="fa-solid fa-bolt"></i> &lt; 24 hours instant plug-and-play onboarding</span></td>
+              </tr>
+              <tr>
+                <td><strong>Monthly Software Cost</strong></td>
+                <td><span class="bad-text">₱5,000 &ndash; ₱50,000 / month</span></td>
+                <td><span class="good-text highlight-pill">₱499 &ndash; ₱2,499 / month (MSME friendly)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Offline Mode Reliability</strong></td>
+                <td><span class="bad-text"><i class="fa-solid fa-circle-xmark"></i> Fails with intermittent connection</span></td>
+                <td><span class="good-text"><i class="fa-solid fa-circle-check"></i> Edge AI local caching &amp; seamless cloud sync</span></td>
+              </tr>
+              <tr>
+                <td><strong>Filipino Dialect NLP</strong></td>
+                <td><span class="bad-text"><i class="fa-solid fa-circle-xmark"></i> Zero native dialect support</span></td>
+                <td><span class="good-text"><i class="fa-solid fa-circle-check"></i> Custom-tuned for Taglish, Cebuano &amp; Ilocano</span></td>
+              </tr>
+              <tr>
+                <td><strong>AI Demand Forecasting</strong></td>
+                <td><span class="bad-text">Enterprise tiers only (Expensive)</span></td>
+                <td><span class="good-text"><i class="fa-solid fa-circle-check"></i> Built-in predictive alerts for all tiers</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tagline-banner-card animate-box">
+          <div class="tagline-ph">"Hindi mo na kailangang mag-type. Magsalita ka lang."</div>
+          <div class="tagline-sub">No keyboards. No barcodes. Just pure spoken productivity.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 8: VII. BUSINESS MODEL               -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="7" data-theme="business-model">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION VII</div>
+          <h2 class="slide-main-title">Business Model &amp; Revenue Streams</h2>
+          <p class="slide-subtitle">A sustainable, high-margin SaaS model powered by tiered subscriptions and B2B API integrations.</p>
+        </div>
+
+        <div class="two-column-split">
+          <!-- Left: Revenue Streams -->
+          <div class="glass-card animate-box">
+            <h3 class="card-section-title"><i class="fa-solid fa-coins"></i> 3 Core Revenue Streams</h3>
+
+            <div class="tier-cards-container">
+              <!-- Tier 1 -->
+              <div class="pricing-tier-card">
+                <div class="tier-badge">TIER 1</div>
+                <div class="tier-main">
+                  <h4>Freemium SaaS Model</h4>
+                  <div class="pricing-breakdown">
+                    <span class="price-chip free">Free &bull; Up to 100 SKUs</span>
+                    <span class="price-chip pro">Pro &bull; ₱499/mo (Unlimited Voice)</span>
+                    <span class="price-chip ent">Enterprise &bull; ₱2,499/mo (Multi-Branch)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tier 2 -->
+              <div class="pricing-tier-card">
+                <div class="tier-badge api">TIER 2</div>
+                <div class="tier-main">
+                  <h4>B2B Voice Engine API Licensing</h4>
+                  <p>Usage-based API calls licensed to third-party logistics (3PL) platforms, warehouse ERPs, and courier networks.</p>
+                </div>
+              </div>
+
+              <!-- Tier 3 -->
+              <div class="pricing-tier-card">
+                <div class="tier-badge data">TIER 3</div>
+                <div class="tier-main">
+                  <h4>Anonymized FMCG Data Insights</h4>
+                  <p>Aggregate stock velocity and demand trend reports sold to major consumer goods manufacturers (Nestle, Unilever, URC).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Cost Structure & Break-Even -->
+          <div class="glass-card animate-box">
+            <h3 class="card-section-title"><i class="fa-solid fa-chart-column"></i> Cost Structure &amp; Unit Economics</h3>
+
+            <div class="cost-bars-list">
+              <div class="cost-bar-item">
+                <div class="cost-label-row">
+                  <span>Cloud Infrastructure (AWS / GCP / Supabase)</span>
+                  <span class="pct">30%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width: 30%;"></div></div>
+              </div>
+
+              <div class="cost-bar-item">
+                <div class="cost-label-row">
+                  <span>AI/NLP Model Training &amp; GPU Compute</span>
+                  <span class="pct">25%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width: 25%;"></div></div>
+              </div>
+
+              <div class="cost-bar-item">
+                <div class="cost-label-row">
+                  <span>Sales, Community Onboarding &amp; DTI Roadshows</span>
+                  <span class="pct">20%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width: 20%;"></div></div>
+              </div>
+
+              <div class="cost-bar-item">
+                <div class="cost-label-row">
+                  <span>Product R&amp;D &amp; Continuous Voice Tuning</span>
+                  <span class="pct">15%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width: 15%;"></div></div>
+              </div>
+
+              <div class="cost-bar-item">
+                <div class="cost-label-row">
+                  <span>Admin, Legal &amp; Compliance</span>
+                  <span class="pct">10%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width: 10%;"></div></div>
+              </div>
+            </div>
+
+            <div class="breakeven-callout">
+              <div class="be-icon"><i class="fa-solid fa-trophy"></i></div>
+              <div class="be-text">
+                <div class="be-title">Projected Break-Even: <strong>Month 18</strong></div>
+                <div class="be-desc">At <strong>1,200 active paying subscribers</strong>, VOXSTOCK achieves operational self-sustainability.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 9: VIII. MARKET ANALYSIS             -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="8" data-theme="market-analysis">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION VIII</div>
+          <h2 class="slide-main-title">Market Analysis &amp; Competitive Landscape</h2>
+          <p class="slide-subtitle">Capitalizing on exponential voice commerce growth and unserved MSME digitization demand.</p>
+        </div>
+
+        <div class="three-column-grid">
+          <!-- Market Growth -->
+          <div class="glass-card animate-box">
+            <div class="card-header-icon cyan"><i class="fa-solid fa-arrow-trend-up"></i></div>
+            <h3 class="card-title">Macro Market Growth</h3>
+            <div class="macro-stat-box">
+              <div class="macro-stat-val">$5.8B</div>
+              <div class="macro-stat-lbl">Global Inventory Software by 2029 (from $3.2B in 2024 at 12.6% CAGR)</div>
+            </div>
+            <div class="macro-stat-box">
+              <div class="macro-stat-val">22% CAGR</div>
+              <div class="macro-stat-lbl">Philippine SaaS Adoption growth rate driven by national digital payment surges</div>
+            </div>
+          </div>
+
+          <!-- Trends & Catalysts -->
+          <div class="glass-card animate-box">
+            <div class="card-header-icon green"><i class="fa-solid fa-microphone"></i></div>
+            <h3 class="card-title">Emerging Trends</h3>
+            <ul class="trend-bullet-list">
+              <li>
+                <strong>$40 Billion Global Voice Commerce:</strong> Voice-first interfaces becoming the primary UI across retail by 2026.
+              </li>
+              <li>
+                <strong>73% MSME Digitization Appetite:</strong> 3 out of 4 Filipino small business owners want to digitize but cite <em>"complex software UI"</em> as their #1 barrier.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Competitive Moat -->
+          <div class="glass-card animate-box">
+            <div class="card-header-icon purple"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3 class="card-title">Competitive Moat</h3>
+            <div class="competitor-list">
+              <div class="comp-item">
+                <span class="comp-name">Peddlr / StoreHub / Loyverse</span>
+                <span class="comp-flaw">POS-focused, zero voice AI, tedious screen typing</span>
+              </div>
+              <div class="comp-item">
+                <span class="comp-name">SAP Business One / NetSuite</span>
+                <span class="comp-flaw">₱100K+/year, enterprise only, too complex</span>
+              </div>
+            </div>
+            <div class="moat-highlight-box">
+              <strong>VOXSTOCK's Blue Ocean:</strong> The ONLY solution merging <em>Voice-First UX + Native Taglish NLP + MSME Pricing</em>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 10: IX. OPERATIONS PLAN              -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="9" data-theme="operations">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION IX</div>
+          <h2 class="slide-main-title">Operations Plan &amp; Roadmap</h2>
+          <p class="slide-subtitle">A phased, disciplined rollout strategy driven by the TRIVOX founding team.</p>
+        </div>
+
+        <div class="two-column-split">
+          <!-- Left: 3 Phases -->
+          <div class="glass-card animate-box">
+            <h3 class="card-section-title"><i class="fa-solid fa-route"></i> Phased Execution Roadmap</h3>
+
+            <div class="timeline-step-list">
+              <div class="timeline-step-item">
+                <div class="step-marker">1</div>
+                <div class="step-content">
+                  <div class="step-title-row">
+                    <h4>Phase 1: MVP &amp; Voice Benchmark</h4>
+                    <span class="step-date">Months 1 &ndash; 6</span>
+                  </div>
+                  <p>Train NLP acoustic models on 10,000+ Tagalog &amp; Cebuano audio samples. Launch pilot with 50 partner retail stores across NCR.</p>
+                </div>
+              </div>
+
+              <div class="timeline-step-item">
+                <div class="step-marker">2</div>
+                <div class="step-content">
+                  <div class="step-title-row">
+                    <h4>Phase 2: Scale &amp; Commercialization</h4>
+                    <span class="step-date">Months 7 &ndash; 12</span>
+                  </div>
+                  <p>Roll out production Android &amp; iOS mobile applications. Form official distribution partnerships with DTI and Go Negosyo programs.</p>
+                </div>
+              </div>
+
+              <div class="timeline-step-item">
+                <div class="step-marker">3</div>
+                <div class="step-content">
+                  <div class="step-title-row">
+                    <h4>Phase 3: Multi-Dialect &amp; ASEAN Expansion</h4>
+                    <span class="step-date">Years 2 &ndash; 3</span>
+                  </div>
+                  <p>Incorporate Ilocano &amp; Hiligaynon dialects. Integrate Shopee/Lazada/TikTok Shop APIs. Expand into Vietnam and Indonesia.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Team Roles & Execution Rigor -->
+          <div class="glass-card animate-box">
+            <h3 class="card-section-title"><i class="fa-solid fa-users-gear"></i> Founding Team Responsibilities</h3>
+
+            <div class="team-role-cards">
+              <div class="team-member-card">
+                <div class="member-avatar lead"><i class="fa-solid fa-user-tie"></i></div>
+                <div class="member-info">
+                  <div class="m-name">Versoza, Azhley Nicole D.</div>
+                  <div class="m-role">Project Lead &amp; Business Strategy</div>
+                  <div class="m-scope">Oversees merchant partnerships, DTI alignments, financial modeling, and investor relations.</div>
+                </div>
+              </div>
+
+              <div class="team-member-card">
+                <div class="member-avatar ai"><i class="fa-solid fa-brain"></i></div>
+                <div class="member-info">
+                  <div class="m-name">Abique, Breian I.</div>
+                  <div class="m-role">AI/ML Development &amp; Voice Engine</div>
+                  <div class="m-scope">Leads acoustic NLP model training, dialect dataset curation, and predictive stock forecasting.</div>
+                </div>
+              </div>
+
+              <div class="team-member-card">
+                <div class="member-avatar dev"><i class="fa-solid fa-code"></i></div>
+                <div class="member-info">
+                  <div class="m-name">Profeta, Dref Nicolo F.</div>
+                  <div class="m-role">Full-Stack Development &amp; UI/UX</div>
+                  <div class="m-scope">Architects edge-cloud sync, mobile/web interfaces, and POS API integrations.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 11: X. FINANCIAL REQUIREMENT         -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="10" data-theme="financials">
+      <div class="slide-content-wrapper">
+        <div class="slide-header-block">
+          <div class="slide-category">SECTION X</div>
+          <h2 class="slide-main-title">Financial Requirement &amp; Projections</h2>
+          <p class="slide-subtitle">Seeking ₱5,000,000 in Seed Capital to fuel engineering, cloud scale, and merchant onboarding.</p>
+        </div>
+
+        <div class="two-column-split">
+          <!-- Left: Fund Allocation -->
+          <div class="glass-card animate-box">
+            <div class="ask-hero-badge">
+              <span class="ask-label">TOTAL SEED ASK:</span>
+              <span class="ask-amount">₱5,000,000</span>
+            </div>
+
+            <table class="custom-data-table allocation-table">
+              <thead>
+                <tr>
+                  <th>Allocation Category</th>
+                  <th>Amount (PHP)</th>
+                  <th>Share</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i class="fa-solid fa-microchip cyan-text"></i> AI/NLP Model Training &amp; Tuning</td>
+                  <td><strong>₱1,500,000</strong></td>
+                  <td><span class="pct-pill">30%</span></td>
+                </tr>
+                <tr>
+                  <td><i class="fa-solid fa-server blue-text"></i> Cloud, GPU &amp; Edge Infrastructure</td>
+                  <td><strong>₱1,000,000</strong></td>
+                  <td><span class="pct-pill">20%</span></td>
+                </tr>
+                <tr>
+                  <td><i class="fa-solid fa-users green-text"></i> Team Engineering Salaries (12 Mo.)</td>
+                  <td><strong>₱1,200,000</strong></td>
+                  <td><span class="pct-pill">24%</span></td>
+                </tr>
+                <tr>
+                  <td><i class="fa-solid fa-bullhorn orange-text"></i> Merchant Onboarding &amp; DTI Roadshows</td>
+                  <td><strong>₱800,000</strong></td>
+                  <td><span class="pct-pill">16%</span></td>
+                </tr>
+                <tr>
+                  <td><i class="fa-solid fa-scale-balanced purple-text"></i> Legal, IP &amp; Regulatory Compliance</td>
+                  <td><strong>₱300,000</strong></td>
+                  <td><span class="pct-pill">6%</span></td>
+                </tr>
+                <tr>
+                  <td><i class="fa-solid fa-shield-cat yellow-text"></i> Contingency &amp; Buffer Reserve</td>
+                  <td><strong>₱200,000</strong></td>
+                  <td><span class="pct-pill">4%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Right: Projections & ROI -->
+          <div class="glass-card animate-box">
+            <h3 class="card-section-title"><i class="fa-solid fa-chart-line"></i> 3-Year Growth &amp; Investor Returns</h3>
+
+            <div class="projection-cards-grid">
+              <div class="proj-card">
+                <div class="proj-year">YEAR 1</div>
+                <div class="proj-rev">₱3.6M</div>
+                <div class="proj-meta">500 Active Stores &bull; NCR Pilot</div>
+              </div>
+
+              <div class="proj-card">
+                <div class="proj-year">YEAR 2</div>
+                <div class="proj-rev">₱11.4M</div>
+                <div class="proj-meta">1,800 Stores &bull; Nationwide</div>
+              </div>
+
+              <div class="proj-card highlight">
+                <div class="proj-year">YEAR 3</div>
+                <div class="proj-rev">₱28.0M</div>
+                <div class="proj-meta">4,500 Stores + B2B API</div>
+              </div>
+            </div>
+
+            <div class="roi-summary-banner">
+              <div class="roi-item">
+                <div class="roi-val">3.2x</div>
+                <div class="roi-lbl">Projected 3-Year Return on Investment</div>
+              </div>
+              <div class="roi-item">
+                <div class="roi-val">Month 18</div>
+                <div class="roi-lbl">Operational Cashflow Break-Even</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 12: CLOSING SLIDE                    -->
+    <!-- ========================================== -->
+    <section class="slide" data-slide-index="11" data-theme="closing">
+      <div class="slide-content-wrapper center-layout">
+        <div class="glass-card closing-hero-card animate-box">
+          <div class="closing-header-pill">
+            <i class="fa-solid fa-trophy"></i>
+            <span>PHILIPPINE STARTUP CHALLENGE XI &bull; GRAND PITCH</span>
+          </div>
+
+          <h1 class="closing-brand-title">VOXSTOCK</h1>
+          <div class="closing-byline">by <strong>TRIVOX</strong> &bull; Grade 12 &mdash; James Gosling</div>
+
+          <p class="closing-tagline">
+            "Speak. Track. Manage. Effortlessly."
+          </p>
+
+          <div class="closing-team-banner">
+            <div class="closing-member">
+              <div class="c-icon"><i class="fa-solid fa-microphone"></i></div>
+              <div class="c-info">
+                <strong>Versoza, Azhley Nicole D.</strong>
+                <span>Project Lead &amp; Strategy</span>
+              </div>
+            </div>
+
+            <div class="closing-member">
+              <div class="c-icon"><i class="fa-solid fa-brain"></i></div>
+              <div class="c-info">
+                <strong>Abique, Breian I.</strong>
+                <span>AI Engineer</span>
+              </div>
+            </div>
+
+            <div class="closing-member">
+              <div class="c-icon"><i class="fa-solid fa-code"></i></div>
+              <div class="c-info">
+                <strong>Profeta, Dref Nicolo F.</strong>
+                <span>Lead Developer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="closing-contact-row">
+            <a href="mailto:trivox.voxstock@gmail.com" class="contact-pill"><i class="fa-solid fa-envelope"></i> trivox.voxstock@gmail.com</a>
+            <a href="http://www.voxstock.ph" target="_blank" class="contact-pill"><i class="fa-solid fa-globe"></i> www.voxstock.ph</a>
+            <span class="contact-pill"><i class="fa-solid fa-phone"></i> +63 (02) 8888-VOX</span>
+          </div>
+
+          <div class="closing-final-statement">
+            "Maraming Salamat, Philippine Startup Challenge XI! Together, let's empower every Filipino MSME with the speed of voice AI."
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation & HUD Bar -->
+  <footer class="presentation-hud">
+    <div class="hud-left">
+      <button id="btn-prev" class="nav-control-btn" title="Previous Slide (Left Arrow)">
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>Prev</span>
+      </button>
+
+      <button id="btn-next" class="nav-control-btn primary" title="Next Slide (Right Arrow or Space)">
+        <span>Next</span>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <!-- Slide Dot Indicators -->
+    <div class="hud-center">
+      <div class="slide-dots-container" id="slide-dots">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+    <div class="hud-right">
+      <div class="slide-counter-badge">
+        <span id="current-slide-num">01</span>
+        <span class="counter-sep">/</span>
+        <span id="total-slide-num">12</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- MODALS & OVERLAYS                          -->
+  <!-- ========================================== -->
+
+  <!-- 1. Live Voice AI Sandbox Demo Modal -->
+  <div id="modal-voice-demo" class="app-modal">
+    <div class="modal-backdrop" id="voice-modal-backdrop"></div>
+    <div class="modal-dialog glass-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-microphone-lines cyan-text"></i>
+          <h3>VOXSTOCK Real-Time Voice NLP Engine</h3>
+        </div>
+        <button class="modal-close-btn" id="btn-close-voice-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-desc">
+          Test VOXSTOCK's natural language understanding engine for Philippine micro-merchants in Tagalog, Cebuano, and English:
+        </p>
+
+        <!-- Sample Voice Command Buttons -->
+        <div class="sample-commands-section">
+          <div class="section-label">Try Spoken Commands:</div>
+          <div class="sample-chips-grid">
+            <button class="command-chip" data-cmd="Magdagdag ng 50 kaso ng sardinas sa bodega">
+              <i class="fa-solid fa-play"></i> "Magdagdag ng 50 kaso ng sardinas sa bodega"
+            </button>
+            <button class="command-chip" data-cmd="Add 20 boxes of Bear Brand powdered milk">
+              <i class="fa-solid fa-play"></i> "Add 20 boxes of Bear Brand powdered milk"
+            </button>
+            <button class="command-chip" data-cmd="Pagbawas ug 15 ka sako nga bugas Sinandomeng">
+              <i class="fa-solid fa-play"></i> "Pagbawas ug 15 ka sako nga bugas Sinandomeng"
+            </button>
+            <button class="command-chip" data-cmd="I-check kung ilan na lang natitirang mantika">
+              <i class="fa-solid fa-play"></i> "I-check kung ilan na lang natitirang mantika"
+            </button>
+          </div>
+        </div>
+
+        <!-- Custom Command Input -->
+        <div class="voice-input-row">
+          <input type="text" id="custom-voice-input" placeholder="Type or speak a voice command..." value="Magdagdag ng 50 kaso ng sardinas">
+          <button id="btn-run-voice-parse" class="run-parse-btn">
+            <i class="fa-solid fa-bolt"></i> Process Command
+          </button>
+        </div>
+
+        <!-- Live NLP Output Display -->
+        <div class="nlp-output-card" id="nlp-output-box">
+          <div class="nlp-status-row">
+            <span class="status-indicator"><span class="pulsing-dot"></span> NLP Engine: Ready</span>
+            <span class="confidence-badge" id="nlp-confidence">Confidence: 98.7%</span>
+          </div>
+
+          <div class="parsed-results-grid">
+            <div class="result-cell">
+              <div class="cell-label">Intent / Action</div>
+              <div class="cell-val action-add" id="nlp-action">ADD_STOCK</div>
+            </div>
+            <div class="result-cell">
+              <div class="cell-label">Quantity &amp; Unit</div>
+              <div class="cell-val" id="nlp-quantity">50 Cases</div>
+            </div>
+            <div class="result-cell">
+              <div class="cell-label">Product / SKU</div>
+              <div class="cell-val" id="nlp-product">Canned Sardines (Mega / 555)</div>
+            </div>
+            <div class="result-cell">
+              <div class="cell-label">Detected Dialect</div>
+              <div class="cell-val dialect-badge" id="nlp-dialect">Tagalog (Filipino)</div>
+            </div>
+          </div>
+
+          <!-- Live Simulated Inventory Table -->
+          <div class="sim-inventory-box">
+            <div class="sim-title"><i class="fa-solid fa-boxes-stacked"></i> Live Cloud Inventory Ledger (Updated Instantly):</div>
+            <div class="inventory-badge-row" id="inventory-ledger">
+              <span class="ledger-pill active">📦 Sardinas: <strong>150 cases (+50)</strong></span>
+              <span class="ledger-pill">🥛 Bear Brand Milk: <strong>45 boxes</strong></span>
+              <span class="ledger-pill">🌾 Sinandomeng Rice: <strong>28 sacks</strong></span>
+              <span class="ledger-pill">🍳 Cooking Oil: <strong>82 bottles</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Slide Overview Grid Modal -->
+  <div id="modal-overview" class="app-modal">
+    <div class="modal-backdrop" id="overview-modal-backdrop"></div>
+    <div class="modal-dialog overview-dialog glass-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-table-cells-large cyan-text"></i>
+          <h3>Slide Overview &bull; Jump to Section</h3>
+        </div>
+        <button class="modal-close-btn" id="btn-close-overview-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="overview-grid" id="overview-thumbnails-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Speaker Notes Drawer -->
+  <div id="drawer-speaker-notes" class="speaker-notes-drawer">
+    <div class="notes-header">
+      <div class="notes-title"><i class="fa-regular fa-note-sticky"></i> Speaker Pitch Notes</div>
+      <button id="btn-close-notes" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="notes-body" id="speaker-notes-content">
+      <!-- Dynamically updated per slide -->
+    </div>
+  </div>
+
+  <!-- External Libraries: Three.js and GSAP via Cloudflare CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
